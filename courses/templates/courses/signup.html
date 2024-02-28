@@ -1,0 +1,27 @@
+{% extends "./base.html" %}
+{% load course_custom_tags %}
+{% block content %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static "courses/css/common.css" %}">
+{% endblock css %}
+
+
+<div class="vh-100">
+    <div class="container">
+        <div class="section-head col-sm-12 pt-5">
+            <h4><span>Sign</span>Up </h4>
+          </div>
+        <div>
+        <form action="/signup" method="POST" class="border p-2" align="center">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input class="btn-hover color-1" type="submit" value="Register">
+        </form>
+        </div>
+     </div>
+</div>
+{% block js %}
+<script src="{% static 'courses/js/course_page.js' %}"></script>
+{% endblock js %}
+{% endblock content %}

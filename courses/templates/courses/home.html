@@ -1,0 +1,290 @@
+{% extends './base.html' %}
+{% load course_custom_tags %}
+{% block content %}
+  {% load static %}
+
+  <style>
+    .price {
+      font-size: 20px;
+    }
+  </style>
+
+{% comment %} bannerrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
+*------------------------------------------------------------
+{% endcomment %}
+<div class="vh-100">
+  <section id="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="promo-title">Best Courses To Learn</p>
+          <p>Enroll Ours Courses To Learn All New Thing And Get Job Ready Courses Like Web Development, Full stacks, Databases, Python</p>
+          <a href="http://127.0.0.1:8000/#Courses"><img src="{% static '../static/courses/play.png' %}" class="play-btn" alt="">Explore Courses</a>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="{% static '../static/courses/home2.png' %}" class="img-fluid">
+        </div>
+      </div>
+    </div>
+    <img src="{% static '../static/courses/wave1.png' %}" class="bottom-img">
+  </section>
+  {% comment %} endd---------------------------------- {% endcomment %}
+  {% comment %}-------------------------------- services--------------------------------------- {% endcomment %}
+  
+<div class="pt-5 pb-5" id="services">
+  <div class="container">
+    <div class="row">
+      <div class="section-head col-sm-12">
+        <h4><span>CheckOut</span> Our Services  !</h4>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, ducimus cum? Aperiam architecto eius 
+          quaerat dolorem voluptatem iste corrupti sunt et soluta rerum excepturi, molestias non, quam eos esse cupiditate?</p>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_one"><i class="fa-solid fa-code"></i></span>
+          <h6>Web Development</h6>
+          <p>Web development services are services that involve the creation and maintenance of websites and web applications123. Web development services can include designing, building, testing, and updating websites and web applications for various purposes and audiences</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_two"><i class="fa-solid fa-globe"></i></span>
+          <h6>Web Design</h6>
+          <p>Web design is the creation of websites and pages to reflect a company’s brand
+             and information and ensure a user-friendly experience. Appearance and design are incorporated as v
+             ital elements whether you’re designing a website, mobile app or maintaining content. </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_three"><i class="fa-solid fa-mobile"></i></span>
+          <h6>Responsive Design</h6>
+          <p>Responsive public goods and services explicitly recognise and adapt to the heterogeneity of citizens’ needs. Rather than adopting a one size fits all approach, responsive service providers implement strategies that segment customer bases, as well as establish.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_four"><i class="fa-solid fa-briefcase"></i></span>
+          <h6>Brand Building</h6>
+          <p>Brand Building is generating awareness, establishing and promoting company using strategies and tactics. In other words brand building is enhancing brand equity using advertising campaigns and promotional strategies. Branding is crucial aspect of company.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_five"><<i class="fa-solid fa-user-secret"></i></span>
+          <h6>Secure Development</h6>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam voluptas dolorem quisquam repudiandae quidem repellat obcaecati reprehenderit, laborum cupiditate eius expedita, odit molestiae perferendis. Dolorem eveniet possimus minima hic voluptatibus?</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6">
+        <div class="item">
+          <span class="icon feature_box_col_six"><i class="fa fa-anchor"></i></span>
+          <h6>Creative Design</h6>
+          <p>A creative designer is someone who uses design skills to promote a company, or its products and services. Publishing, broadcasting and advertising companies employ creative designers. Creative design positions include graphic designers. industrial designers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} --------------------------Services End----------------------------------- {% endcomment %}
+
+{% comment %} -----------------------------Course------------------------------------------------- {% endcomment %}
+
+  <div class="container-fluid image1" id="Courses">
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="title text-center">
+        Our Courses 
+      </h1>
+      {% for course in courses %}
+        <div class="col mx-auto">
+          <div class="card mx-auto" style="width: 18rem;">
+            <img class="card-img-top" src="{{ course.thumbnail.url }}" alt="Card image cap" />
+            <div class="card-body">
+              <h5 class="card-title">{{ course.name }}</h5>
+              <p class="card-text m-0 p-0">
+                <span class="price">
+                  Save {{ course.discount }}%
+                  <br />
+                  <del>{{ course.price|rupee }}</del>&nbsp;
+                  <span>{% cal_sellprice course.price course.discount as value %} {{ value|rupee }}</span>
+                </span>
+              </p>
+            </div>
+            <div class="card-footer">
+              {% is_enrolled request course as enrolled %}
+              <div class="row no-gutters">
+                {% if enrolled %}
+                  <div class="col text-center border-right">
+                    <a href="/course/{{ course.slug }}" class="btn btn-light btn-block">Start Course</a>
+                  </div>
+                {% else %}
+                  <div class="col border-right">
+                    <a href="/check-out/{{ course.slug }}" class="btn btn-light btn-block">Enroll Now</a>
+                  </div>
+                  <div class="col">
+                    <a href="/course/{{ course.slug }}" class="btn btn-light btn-block">Show More</a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% comment %} -----------------------------Course End------------------------------------------------- {% endcomment %}
+
+
+{% comment %} ----------------------testimonials------------------------------- {% endcomment %}
+
+<section id="testiomial">
+  <div class="container">
+      <h1 class="section-header pt-5">Client Review <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></h1>
+      <div class="testimonials">
+          
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="profile">
+                                <div class="img-area">
+                                    <img src="{% static '../static/courses/samuel.jpg' %}" alt="">
+                                </div>
+                                <div class="bio">
+                                    <h2>Nissi Samuel</h2>
+                                    <h4>Web Designer</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content">
+                                <p><span><i class="fa fa-quote-left"></i></span>“Thank you Chandu for sharing your amazing experience with us! We’re so grateful to have you as a Teacher.”</p>
+                                <p class="socials">
+                                    <i class="fa-brands fa-instagram"></i>
+                                    <i class="fa-brands fa-behance"></i>
+                                    <i class="fa-brands fa-pinterest"></i>
+                                    <i class="fa-brands fa-dribbble"></i>
+                                    <i class="fa-brands fa-vimeo"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="profile">
+                                <div class="img-area">
+                                    <img src="{% static '../static/courses/mahesh.jpg' %}" alt="">
+                                </div>
+                                <div class="bio">
+                                    <h2>Kadthal Mahesh</h2>
+                                    <h4>Web Development</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content">
+                                <p><span><i class="fa fa-quote-left"></i></span>The focus of your testimonial caption should be on the customer’s experience. Explain their pain points and how your product or service helped solve their problems. This will help your audience relate to the testimonial and understand the value of your brand.</p>
+                                <p class="socials">
+                                    <i class="fa-brands fa-twitter"></i>
+                                    <i class="fa-brands fa-behance"></i>
+                                    <i class="fa-brands fa-pinterest"></i>
+                                    <i class="fa-brands fa-dribbble"></i>
+                                    <i class="fa-brands fa-vimeo"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="profile">
+                                <div class="img-area">
+                                    <img src="{% static '../static/courses/prabhu.jpg' %}" alt="">
+                                </div>
+                                <div class="bio">
+                                    <h2>Konigipoku Prabhu Deva</h2>
+                                    <h4>Digital Marketing</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="content">
+                                <p><span><i class="fa fa-quote-left"></i></span>“Thank you [Chandu] for sharing your amazing experience with us! We’re so grateful to have you as a Teacher.”
+                                </p>
+                                <p class="socials">
+                                    <i class="fa-brands fa-twitter"></i>
+                                    <i class="fa-brands fa-behance"></i>
+                                    <i class="fa-brands fa-pinterest"></i>
+                                    <i class="fa-brands fa-dribbble"></i>
+                                    <i class="fa-brands fa-vimeo"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          
+      </div>
+  </div>
+</section>
+
+
+{% comment %} ----------------------testimonials end------------------------------- {% endcomment %}
+
+{% comment %} -------------------about us-------------------------------- {% endcomment %}
+
+<section id="about-us">
+  <div class="container">
+    <h1 class="title text-center">
+      Why Choose Us ?
+    </h1>
+    <div class="row">
+      <div class="col-md-6 about-us">
+        <p class="about-title1" >Why We're Different</p>
+        <ul>
+          <li>It shows off extensive knowledge of the company and its values.</li>
+          <li>It highlights the candidate’s passion for the field.</li>
+          <li>It does a better job convincing the interviewer the candidate will stick around for the long-term.</li>
+          <li>It shows off extensive knowledge of the company and its values.</li>
+          <li>We are different and learn from us</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <img src="{% static '../static/courses/network.png' %}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+
+{% comment %} -------------------about us end-------------------------------- {% endcomment %}
+  
+{% endblock %}
+
+{% block services %}
+
+{% endblock services %}
+
+

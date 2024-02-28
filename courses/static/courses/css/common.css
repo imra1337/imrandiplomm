@@ -1,0 +1,23 @@
+.pad {
+    padding-top: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#video_list {
+    overflow-y: scroll;
+}
+
+.active-video{
+    background-color: rgb(88, 90, 91);
+}
+
+.active-video-link {
+    color: rgb(220, 225, 230);
+}
+.active-video-link:hover {
+    color: rgb(211, 229, 248);
+    text-decoration: none;
+}
